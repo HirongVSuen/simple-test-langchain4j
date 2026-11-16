@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hirong.agentic</groupId>
+    <artifactId>agentic_example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>langchain4j</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-bom</artifactId>
+                <version>1.23.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>4.1.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>glm4.5</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring-profiles-active>glm4.5</spring-profiles-active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>glm4.7</id>
+            <properties>
+                <spring-profiles-active>glm4.7</spring-profiles-active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>deepseek</id>
+            <properties>
+                <spring-profiles-active>deepseek</spring-profiles-active>
+            </properties>
+        </profile>
+    </profiles>
+
+<!--    <build>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <filtering>true</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--    </build>-->
+</project>

@@ -1,0 +1,49 @@
+<div x-data="chat()" x-cloak class="flex flex-col h-full relative">
+  <main x-ref="messages" class="flex-1 overflow-y-auto px-4 pt-6 pb-44">
+    <div x-show="messages.length === 0"
+         hx-get="/fragments/empty-state.html"
+         hx-trigger="load"
+         hx-target="this"
+         hx-swap="innerHTML"></div>
+
+    <template x-for="(m, i) in messages" :key="i">
+      <div class="max-w-2xl mx-auto mb-6 flex items-start gap-3"
+           :class="m.role === 'user' ? 'justify-end' : 'justify-start'">
+        <div x-show="m.role === 'assistant'" class="avatar placeholder flex-shrink-0 self-start">
+          <div class="bg-primary text-primary-content rounded-full w-8 h-8 flex-shrink-0">
+            <span class="text-xs font-semibold">AI</span>
+          </div>
+        </div>
+        <div :class="m.role === 'user'
+              ? 'max-w-[80%] bg-base-200 rounded-2xl rounded-tr-sm px-4 py-2.5'
+              : 'flex-1 min-w-0 pt-1'">
+          <div :class="m.role === 'assistant' ? 'markdown-body' : ''"
+               :class="{ 'text-error': m.error }">
+            <template x-if="m.streaming">
+              <span class="streaming-cursor" x-text="m.text"></span>
+            </template>
+            <template x-if="!m.streaming">
+              <span x-html="m.html"></span>
+            </template>
+          </div>
+        </div>
+      </div>
+    </template>
+  </main>
+
+  <footer class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-base-100 via-base-100 to-transparent pt-3 px-4 pb-5">
+    <form class="max-w-2xl mx-auto" @submit.prevent="send()">
+      <div class="flex items-end gap-2 bg-base-100 border border-base-300 rounded-2xl px-4 py-2 shadow-lg focus-within:border-primary transition-colors">
+        <textarea x-ref="input" x-model="input" rows="1"
+                  placeholder="给 Deep AI 发送消息…"
+                  class="flex-1 bg-transparent border-none outline-none resize-none py-2 max-h-[200px] leading-relaxed"
+                  @input="autoGrow()" @keydown.enter="onEnter($event)"
+                  :disabled="busy"></textarea>
+        <button type="submit" class="btn btn-primary btn-circle btn-sm flex-shrink-0"
+                :disabled="busy || !input.trim()">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 20l19-8L3 4l3 8-3 8z"/></svg>
+        </button>
+      </div>
+    </form>
+  </footer>
+</div>

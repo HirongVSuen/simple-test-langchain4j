@@ -1,0 +1,7 @@
+[x-cloak] { display: none !important; }
+
+/* chat-session 是自定义元素，默认 display:inline，会让内部 h-full 百分比高度失效 */
+chat-session {
+  display: block;
+  height: 100%;
+}

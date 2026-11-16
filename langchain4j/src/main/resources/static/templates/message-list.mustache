@@ -1,0 +1,14 @@
+{{#messages}}
+<div class="max-w-2xl mx-auto mb-6 flex items-start gap-3 {{#isUser}}justify-end{{/isUser}}{{^isUser}}justify-start{{/isUser}}">
+  {{#isAssistant}}
+  <div class="avatar placeholder flex-shrink-0 self-start">
+    <div class="bg-primary text-primary-content rounded-full w-8 h-8 flex-shrink-0">
+      <span class="text-xs font-semibold">AI</span>
+    </div>
+  </div>
+  {{/isAssistant}}
+  <div class="{{#isUser}}max-w-[80%] bg-base-200 rounded-2xl rounded-tr-sm px-4 py-2.5{{/isUser}}{{^isUser}}flex-1 min-w-0 pt-1{{/isUser}}">
+    <div class="markdown-body">{{{html}}}</div>
+  </div>
+</div>
+{{/messages}}

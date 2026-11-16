@@ -1,0 +1,13 @@
+.streaming-cursor {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.streaming-cursor::after {
+  content: '▍';
+  color: oklch(var(--p));
+  margin-left: 2px;
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
